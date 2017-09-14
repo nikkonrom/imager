@@ -93,7 +93,7 @@ void MainWindow::on_actionOpen_triggered()
     while (dialog.exec() == QDialog::Accepted && !loadFile(dialog.selectedFiles().first())) {}
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_loadButton_clicked()
 {
     MainWindow::on_actionOpen_triggered();
 }

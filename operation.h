@@ -7,7 +7,7 @@ class Operation
 public:
     void setImage(QImage image);
     virtual QImage execute();
-private:
+protected:
     QImage inputImage;
 
 };
