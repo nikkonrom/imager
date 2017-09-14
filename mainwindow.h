@@ -26,7 +26,7 @@ private:
     void createActions();
     void setImage(const QImage &newImage);
 
-    QImage image;
+    QImage inputImage;
 
 };
 

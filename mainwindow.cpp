@@ -27,8 +27,8 @@ void MainWindow::createActions(){
 
 void MainWindow::setImage(const QImage &newImage)
 {
-    image = newImage;
-    ui->inputLabel->setPixmap(QPixmap::fromImage(image));
+    inputImage = newImage;
+    ui->inputLabel->setPixmap(QPixmap::fromImage(inputImage));
     //scaleFactor = 1.0;
 
     /*scrollArea->setVisible(true);
@@ -57,7 +57,7 @@ bool MainWindow::loadFile(const QString &fileName)
     setWindowFilePath(fileName);
 
     const QString message = tr("Opened \"%1\", %2x%3, Depth: %4")
-        .arg(QDir::toNativeSeparators(fileName)).arg(image.width()).arg(image.height()).arg(image.depth());
+        .arg(QDir::toNativeSeparators(fileName)).arg(inputImage.width()).arg(inputImage.height()).arg(inputImage.depth());
     statusBar()->showMessage(message);
     return true;
 }
