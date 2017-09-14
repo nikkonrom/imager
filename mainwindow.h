@@ -21,12 +21,15 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_boudaries_button_clicked();
+
 private:
     Ui::MainWindow *ui;
     void createActions();
     void setImage(const QImage &newImage);
 
     QImage inputImage;
+    QImage outputImage;
 
 };
 

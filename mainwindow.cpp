@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "boundaries.h"
 
 #include <QFileDialog>
 #include <QStandardPaths>
@@ -95,4 +96,13 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::on_pushButton_clicked()
 {
     MainWindow::on_actionOpen_triggered();
+}
+
+
+void MainWindow::on_boudaries_button_clicked()
+{
+    Boundaries boundaries_operation;
+    boundaries_operation.setImage(inputImage);
+    outputImage = boundaries_operation.execute();
+    ui->outputLabel->setPixmap(QPixmap::fromImage(outputImage));
 }

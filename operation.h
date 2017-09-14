@@ -5,10 +5,11 @@
 class Operation
 {
 public:
-    explicit Operation(QImage);
+    void setImage(QImage image);
+    virtual QImage execute();
 private:
     QImage inputImage;
-    virtual QImage execute(QImage);
+
 };
 
 #endif // OPERATION_H

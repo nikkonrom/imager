@@ -1,10 +1,10 @@
 #include "operation.h"
 
-Operation::Operation(QImage inputImage)
+void Operation::setImage(QImage inputImage)
 {
     this->inputImage = inputImage;
 }
 
- QImage Operation::execute(QImage source){
-    return source;
+QImage Operation::execute(){
+    return this->inputImage;
 }
