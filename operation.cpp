@@ -8,3 +8,5 @@ void Operation::setImage(QImage inputImage)
 QImage Operation::execute(){
     return this->inputImage;
 }
+
+

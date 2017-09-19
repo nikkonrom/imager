@@ -101,8 +101,9 @@ void MainWindow::on_loadButton_clicked()
 
 void MainWindow::on_boudaries_button_clicked()
 {
+
     Boundaries boundaries_operation;
     boundaries_operation.setImage(inputImage);
-    outputImage = boundaries_operation.execute();
+    outputImage = boundaries_operation.execute(ui->horizontalSlider->value());
     ui->outputLabel->setPixmap(QPixmap::fromImage(outputImage));
 }

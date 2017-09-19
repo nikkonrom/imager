@@ -1,4 +1,5 @@
 #include "boundaries.h"
+#include <QDebug>
 
 
 
@@ -7,17 +8,142 @@ Boundaries::Boundaries()
 
 }
 
-QImage mat_to_qimage_ref(cv::Mat &mat, QImage::Format format)
-{
-  return QImage(mat.data, mat.cols, mat.rows, mat.step, format);
-}
+inline Mat Boundaries::QImageToCvMat( const QImage &inImage, bool inCloneImageData)
+  {
+     switch ( inImage.format() )
+     {
+        // 8-bit, 4 channel
+        case QImage::Format_ARGB32:
+        case QImage::Format_ARGB32_Premultiplied:
+        {
+           cv::Mat  mat( inImage.height(), inImage.width(),
+                         CV_8UC4,
+                         const_cast<uchar*>(inImage.bits()),
+                         static_cast<size_t>(inImage.bytesPerLine())
+                         );
 
-cv::Mat qimage_to_mat_ref(QImage &img, int format)
-{
-    return cv::Mat(img.height(), img.width(),
-            format, img.bits(), img.bytesPerLine());
-}
+           return (inCloneImageData ? mat.clone() : mat);
+        }
 
-QImage Boundaries::execute(){
-    return this->inputImage;
+        // 8-bit, 3 channel
+        case QImage::Format_RGB32:
+        case QImage::Format_RGB888:
+        {
+           if ( !inCloneImageData )
+           {
+              qWarning() << "ASM::QImageToCvMat() - Conversion requires cloning because we use a temporary QImage";
+           }
+
+           QImage   swapped = inImage;
+
+           if ( inImage.format() == QImage::Format_RGB32 )
+           {
+              swapped = swapped.convertToFormat( QImage::Format_RGB888 );
+           }
+
+           swapped = swapped.rgbSwapped();
+
+           return cv::Mat( swapped.height(), swapped.width(),
+                           CV_8UC3,
+                           const_cast<uchar*>(swapped.bits()),
+                           static_cast<size_t>(swapped.bytesPerLine())
+                           ).clone();
+        }
+
+        // 8-bit, 1 channel
+        case QImage::Format_Indexed8:
+        {
+           cv::Mat  mat( inImage.height(), inImage.width(),
+                         CV_8UC1,
+                         const_cast<uchar*>(inImage.bits()),
+                         static_cast<size_t>(inImage.bytesPerLine())
+                         );
+
+           return (inCloneImageData ? mat.clone() : mat);
+        }
+
+        default:
+           qWarning() << "ASM::QImageToCvMat() - QImage format not handled in switch:" << inImage.format();
+           break;
+     }
+
+     return cv::Mat();
+  }
+
+inline QImage  Boundaries::cvMatToQImage( const cv::Mat &inMat )
+   {
+      switch ( inMat.type() )
+      {
+         // 8-bit, 4 channel
+         case CV_8UC4:
+         {
+            QImage image( inMat.data,
+                          inMat.cols, inMat.rows,
+                          static_cast<int>(inMat.step),
+                          QImage::Format_ARGB32 );
+
+            return image;
+         }
+
+         // 8-bit, 3 channel
+         case CV_8UC3:
+         {
+            QImage image( inMat.data,
+                          inMat.cols, inMat.rows,
+                          static_cast<int>(inMat.step),
+                          QImage::Format_RGB888 );
+
+            return image.rgbSwapped();
+         }
+
+         // 8-bit, 1 channel
+         case CV_8UC1:
+         {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
+            QImage image( inMat.data,
+                          inMat.cols, inMat.rows,
+                          static_cast<int>(inMat.step),
+                          QImage::Format_Grayscale8 );
+#else
+            static QVector<QRgb>  sColorTable;
+
+            // only create our color table the first time
+            if ( sColorTable.isEmpty() )
+            {
+               sColorTable.resize( 256 );
+
+               for ( int i = 0; i < 256; ++i )
+               {
+                  sColorTable[i] = qRgb( i, i, i );
+               }
+            }
+
+            QImage image( inMat.data,
+                          inMat.cols, inMat.rows,
+                          static_cast<int>(inMat.step),
+                          QImage::Format_Indexed8 );
+
+            image.setColorTable( sColorTable );
+#endif
+
+            return image;
+         }
+
+         default:
+            qWarning() << "ASM::cvMatToQImage() - cv::Mat image type not handled in switch:" << inMat.type();
+            break;
+      }
+
+      return QImage();
+   }
+
+QImage Boundaries::execute(int value){
+    inputMat = QImageToCvMat(inputImage, true);
+    this->outputMap.create(inputMat.size(), inputMat.type());
+    cvtColor(inputMat, inputMatGrayScaled, CV_BGR2GRAY);
+    blur(inputMatGrayScaled, detectedEdges, Size(3,3));
+    Canny(detectedEdges, detectedEdges, value, value*ratio, kernelSize);
+    outputMap = Scalar::all(0);
+    inputMat.copyTo(outputMap, detectedEdges);
+    return cvMatToQImage(outputMap);
 }
