@@ -17,9 +17,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionOpen_triggered();
+   /* void on_actionOpen_triggered();
 
-    void on_loadButton_clicked();
+    void on_loadButton_clicked();*/
 
     void on_boudaries_button_clicked();
 

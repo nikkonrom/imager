@@ -14,6 +14,23 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Imager");
+    connect(ui->keepAspectRatioCheckBox, &QCheckBox::stateChanged, [&](int state)
+    {
+        ui->inputLabel->setKeepAspectRatioEnabled(state == Qt::Checked);
+        ui->outputLabel->setKeepAspectRatioEnabled(state == Qt::Checked);
+    });
+
+    connect(ui->overscaleCheckBox, &QCheckBox::stateChanged, [&](int state)
+    {
+        ui->inputLabel->setOverscaleEnabled(state == Qt::Checked);
+        ui->outputLabel->setOverscaleEnabled(state == Qt::Checked);
+    });
+
+    connect(ui->loadButton, &QPushButton::clicked, [&]()
+    {
+        ui->inputLabel->loadPixmapData(QFileDialog::getOpenFileName(this));
+    });
+
     createActions();
 }
 
@@ -84,7 +101,7 @@ static void initializeImageFileDialog(QFileDialog &dialog, QFileDialog::AcceptMo
     if (acceptMode == QFileDialog::AcceptSave)
         dialog.setDefaultSuffix("jpg");
 }
-
+/*
 void MainWindow::on_actionOpen_triggered()
 {
     QFileDialog dialog(this, tr("Open File"));
@@ -97,13 +114,13 @@ void MainWindow::on_loadButton_clicked()
 {
     MainWindow::on_actionOpen_triggered();
 }
-
+*/
 
 void MainWindow::on_boudaries_button_clicked()
 {
 
     Boundaries boundaries_operation;
-    boundaries_operation.setImage(inputImage);
+    boundaries_operation.setImage(ui->inputLabel->pixmap().toImage());
     outputImage = boundaries_operation.execute(ui->horizontalSlider->value());
-    ui->outputLabel->setPixmap(QPixmap::fromImage(outputImage));
+    ui->outputLabel->loadPixmapData(QPixmap::fromImage(outputImage));
 }
