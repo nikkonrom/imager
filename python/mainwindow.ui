@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>805</width>
-    <height>600</height>
+    <width>736</width>
+    <height>397</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,7 +34,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="lineWidth">
-           <number>3</number>
+           <number>1</number>
           </property>
           <property name="text">
            <string/>
@@ -59,7 +59,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="lineWidth">
-           <number>3</number>
+           <number>1</number>
           </property>
           <property name="text">
            <string/>
@@ -199,7 +199,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>805</width>
+     <width>736</width>
      <height>26</height>
     </rect>
    </property>

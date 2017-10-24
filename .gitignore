@@ -46,6 +46,7 @@ project.fragment.lock.json
 artifacts/
 
 *_i.c
+*.
 *_p.c
 *_i.h
 *.ilk
@@ -257,5 +258,6 @@ paket-files/
 .cr/
 
 # Python Tools for Visual Studio (PTVS)
+.idea/
 __pycache__/
 *.pyc
