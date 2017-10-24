@@ -5,6 +5,7 @@ from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from Boundaries import BoundariesOperation
 
+
 class MyWin(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)
@@ -12,17 +13,18 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         # Здесь прописываем событие нажатия на кнопку
-        self.ui.loadButton.clicked.connect(self.LoadImage)
-        self.ui.boundariesButton.clicked.connect(self.GetBoundaries)
+        self.ui.loadButton.clicked.connect(self.loadImage)
+        self.ui.boundariesButton.clicked.connect(self.getBoundaries)
+        #self.ui.originalSize.stateChanged()
 
     # Пока пустая функция которая выполняется
     # при нажатии на кнопку
-    def LoadImage(self):
+    def loadImage(self):
         inputImagePath = QFileDialog.getOpenFileName(self, 'Open image...', '/home')[0]
         inputPixmap = Qt.QPixmap(inputImagePath)
         self.ui.label.setPixmap(inputPixmap)
     
-    def GetBoundaries(self):
+    def getBoundaries(self):
         if self.ui.label.pixmap():
             self.ui.label_2.setPixmap(BoundariesOperation.Execute(self.ui.label.pixmap()))
         
