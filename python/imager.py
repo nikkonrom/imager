@@ -15,7 +15,10 @@ class MyWin(QtWidgets.QMainWindow):
         # Здесь прописываем событие нажатия на кнопку
         self.ui.loadButton.clicked.connect(self.loadImage)
         self.ui.boundariesButton.clicked.connect(self.getBoundaries)
-        #self.ui.originalSize.stateChanged()
+        self.ui.keepRatio.stateChanged.connect(self.ui.label.setKeepAspectRatioEnabled)
+        self.ui.keepRatio.stateChanged.connect(self.ui.label_2.setKeepAspectRatioEnabled)
+        self.ui.originalSize.stateChanged.connect(self.ui.label.setOverscaleEnabled)
+        self.ui.originalSize.stateChanged.connect(self.ui.label_2.setOverscaleEnabled)
 
     # Пока пустая функция которая выполняется
     # при нажатии на кнопку
