@@ -1,9 +1,8 @@
 import sys
-# Импортируем наш интерфейс из файла
 from mainwindow import *
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
-from Boundaries import BoundariesOperation
+from boundaries import boundaries_operation
 
 
 class MyWin(QtWidgets.QMainWindow):
@@ -12,13 +11,19 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # Здесь прописываем событие нажатия на кнопку
+        self.ui.actionOpen.setShortcut(Qt.QKeySequence.Open)
+        self.ui.actionOpen.triggered.connect(self.loadImage)
+
         self.ui.loadButton.clicked.connect(self.loadImage)
+
+        self.ui.actionOpen.triggered.connect(self.loadImage)
+        self.ui.actionOpen.setShortcut(Qt.QKeySequence.Open)
         self.ui.boundariesButton.clicked.connect(self.getBoundaries)
-        self.ui.keepAspectRatioCheckBox.stateChanged.connect(self.ui.label.setKeepAspectRatioEnabled)
-        self.ui.keepAspectRatioCheckBox.stateChanged.connect(self.ui.label_2.setKeepAspectRatioEnabled)
-        self.ui.ignoreOverscaleCheckBox.stateChanged.connect(self.ui.label.setOverscaleEnabled)
-        self.ui.ignoreOverscaleCheckBox.stateChanged.connect(self.ui.label_2.setOverscaleEnabled)
+
+        self.ui.keepAspectRatioCheckBox.stateChanged.connect(self.ui.inputLabel.setKeepAspectRatioEnabled)
+        self.ui.keepAspectRatioCheckBox.stateChanged.connect(self.ui.outputLabel.setKeepAspectRatioEnabled)
+        self.ui.ignoreOverscaleCheckBox.stateChanged.connect(self.ui.inputLabel.setOverscaleEnabled)
+        self.ui.ignoreOverscaleCheckBox.stateChanged.connect(self.ui.outputLabel.setOverscaleEnabled)
 
     # Пока пустая функция которая выполняется
     # при нажатии на кнопку
@@ -26,11 +31,11 @@ class MyWin(QtWidgets.QMainWindow):
         inputImagePath = QFileDialog.getOpenFileName(self, 'Open image...', '/home')[0]
         if inputImagePath:
             inputPixmap = Qt.QPixmap(inputImagePath)
-            self.ui.label.loadPixmapData(inputPixmap)
+            self.ui.inputLabel.loadPixmapData(inputPixmap)
 
     def getBoundaries(self):
-        if self.ui.label.getPixmap() is not None:
-            self.ui.label_2.loadPixmapData(BoundariesOperation.Execute(self.ui.label.getPixmap()))
+        if self.ui.inputLabel.getPixmap() is not None:
+            self.ui.outputLabel.loadPixmapData(boundaries_operation.execute(self.ui.inputLabel.getPixmap()))
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 from PyQt5.Qt import QPixmap
 
-class Operation(object):
+class operation(object):
     #QPixmap pixmap;
 
     @staticmethod
-    def Execute(inputPixmap):
+    def execute(inputPixmap):
         return inputPixmap
 
 

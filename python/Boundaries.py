@@ -1,6 +1,6 @@
-from Operation import Operation
+from operation import operation
 
-class BoundariesOperation(Operation):
+class boundaries_operation(operation):
     @staticmethod
-    def Execute(inputPixmap):
-        return inputPixmap
+    def execute(input_pixmap):
+        return input_pixmap

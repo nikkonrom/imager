@@ -8,8 +8,8 @@ class ScaledPixmap(QLabel):
     workPixmap = None
     originalSize = None
 
-    keepAspectRatio = False
-    overscalingEnabled = False
+    keepAspectRatio = True
+    overscalingEnabled = True
 
     loadFinished = QtCore.pyqtSignal()
 
@@ -42,26 +42,25 @@ class ScaledPixmap(QLabel):
     def setScaledPixmap(self, pixmap):
         self.workPixmap = pixmap
         self.originalSize = pixmap.size()
-        super().update()
+        self.update()
 
     @QtCore.pyqtSlot(str, name='loadPixmapData')
     def loadPixmapData(self, source):
         pixmap = QPixmap(source)
         if pixmap is not None:
-            self.SetScaledPixmap(pixmap)
+            self.setScaledPixmap(pixmap)
 
     @QtCore.pyqtSlot(QPixmap, name='loadPixmapData')
     def loadPixmapData(self, pixmap):
         if pixmap is not None:
-            self.SetScaledPixmap(pixmap)
+            self.setScaledPixmap(pixmap)
 
     @QtCore.pyqtSlot(int, name='setOverscaleEnabled')
     def setOverscaleEnabled(self, enabled):
         self.overscalingEnabled = enabled
+        self.update()
 
     @QtCore.pyqtSlot(int, name='setKeepAspectRatioEnabled')
     def setKeepAspectRatioEnabled(self, enabled):
         self.keepAspectRatio = enabled
-
-    def __init__(self, parent):
-        super().__init__()
+        self.update()
