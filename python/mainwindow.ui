@@ -101,6 +101,39 @@
                    <property name="title">
                     <string>Boundaries options</string>
                    </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_4">
+                    <item>
+                     <widget class="QRadioButton" name="radioButtonRoberts">
+                      <property name="text">
+                       <string>Roberts filter</string>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButtonPrewitt">
+                      <property name="text">
+                       <string>Prewitt filter</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButtonScharr">
+                      <property name="text">
+                       <string>Scharr filter</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButtonSobel">
+                      <property name="text">
+                       <string>Sobel filter</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </widget>
                  </item>
                 </layout>
@@ -203,6 +236,13 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonExportSettings">
+        <property name="text">
+         <string>Export settings</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -213,17 +253,13 @@
      <x>0</x>
      <y>0</y>
      <width>736</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionSave"/>
-    <addaction name="separator"/>
-    <addaction name="actionExit"/>
-    <addaction name="actionOpen_3"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>

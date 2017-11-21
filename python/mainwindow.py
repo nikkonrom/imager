@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.7
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -64,6 +64,21 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.groupBox_2 = QtWidgets.QGroupBox(self.page)
         self.groupBox_2.setObjectName("groupBox_2")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.groupBox_2)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.radioButtonRoberts = QtWidgets.QRadioButton(self.groupBox_2)
+        self.radioButtonRoberts.setChecked(True)
+        self.radioButtonRoberts.setObjectName("radioButtonRoberts")
+        self.verticalLayout_4.addWidget(self.radioButtonRoberts)
+        self.radioButtonPrewitt = QtWidgets.QRadioButton(self.groupBox_2)
+        self.radioButtonPrewitt.setObjectName("radioButtonPrewitt")
+        self.verticalLayout_4.addWidget(self.radioButtonPrewitt)
+        self.radioButtonScharr = QtWidgets.QRadioButton(self.groupBox_2)
+        self.radioButtonScharr.setObjectName("radioButtonScharr")
+        self.verticalLayout_4.addWidget(self.radioButtonScharr)
+        self.radioButtonSobel = QtWidgets.QRadioButton(self.groupBox_2)
+        self.radioButtonSobel.setObjectName("radioButtonSobel")
+        self.verticalLayout_4.addWidget(self.radioButtonSobel)
         self.horizontalLayout_4.addWidget(self.groupBox_2)
         self.stackedWidget.addWidget(self.page)
         self.page_2 = QtWidgets.QWidget()
@@ -114,10 +129,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.loadButton)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
+        self.pushButtonExportSettings = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButtonExportSettings.setObjectName("pushButtonExportSettings")
+        self.horizontalLayout_2.addWidget(self.pushButtonExportSettings)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 736, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 736, 22))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -135,10 +153,6 @@ class Ui_MainWindow(object):
         self.actionOpen_2.setObjectName("actionOpen_2")
         self.actionOpen_3 = QtWidgets.QAction(MainWindow)
         self.actionOpen_3.setObjectName("actionOpen_3")
-        self.menuFile.addAction(self.actionSave)
-        self.menuFile.addSeparator()
-        self.menuFile.addAction(self.actionExit)
-        self.menuFile.addAction(self.actionOpen_3)
         self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -152,10 +166,15 @@ class Ui_MainWindow(object):
         self.boundariesButton.setText(_translate("MainWindow", "Boundaries"))
         self.semanticSegmentationButton.setText(_translate("MainWindow", "Semantic Segmentation"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Boundaries options"))
+        self.radioButtonRoberts.setText(_translate("MainWindow", "Roberts filter"))
+        self.radioButtonPrewitt.setText(_translate("MainWindow", "Prewitt filter"))
+        self.radioButtonScharr.setText(_translate("MainWindow", "Scharr filter"))
+        self.radioButtonSobel.setText(_translate("MainWindow", "Sobel filter"))
         self.groupBox_3.setTitle(_translate("MainWindow", "Semantis segentation options"))
         self.ignoreOverscaleCheckBox.setText(_translate("MainWindow", "Ignore original size"))
         self.keepAspectRatioCheckBox.setText(_translate("MainWindow", "Maintain propotions"))
         self.loadButton.setText(_translate("MainWindow", "Load"))
+        self.pushButtonExportSettings.setText(_translate("MainWindow", "Export settings"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
