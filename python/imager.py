@@ -1,11 +1,9 @@
 import sys
-from mainwindow import *
-from PyQt5 import Qt, QtCore, QtGui, QtWidgets
+from PyQt5 import Qt, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
-from boundaries import boundaries_operation
-from PyQt5.QtGui import QImage
-
-from python.mainwindow import Ui_MainWindow
+from python.boundaries import BoundariesOperation
+from python.semantic_segmentation import SemanticSegmentation
+from python.mainwindow import *
 
 
 class MyWin(QtWidgets.QMainWindow):
@@ -17,6 +15,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.loadButton.clicked.connect(self.load_image)
 
         self.ui.boundariesButton.clicked.connect(self.get_boundaries)
+        self.ui.semanticSegmentationButton.clicked.connect(self.get_semantic_segmentation)
 
         self.ui.keepAspectRatioCheckBox.stateChanged.connect(self.ui.inputLabel.setKeepAspectRatioEnabled)
         self.ui.keepAspectRatioCheckBox.stateChanged.connect(self.ui.outputLabel.setKeepAspectRatioEnabled)
@@ -32,8 +31,11 @@ class MyWin(QtWidgets.QMainWindow):
     def get_boundaries(self):
         if self.ui.inputLabel.pixmap() is not None:
             filter_number = 1 if self.ui.radioButtonRoberts.isChecked() else 2 if self.ui.radioButtonPrewitt.isChecked() else 3 if self.ui.radioButtonSobel.isChecked() else 4
-            self.ui.outputLabel.loadPixmapData(boundaries_operation.execute(self.ui.inputLabel.pixmap(), filter_number))
+            self.ui.outputLabel.loadPixmapData(BoundariesOperation.execute(self.ui.inputLabel.pixmap(), filter_number))
 
+    def get_semantic_segmentation(self):
+        if self.ui.inputLabel.pixmap() is not None:
+            self.ui.outputLabel.loadPixmapData(SemanticSegmentation.execute(self.ui.inputLabel.pixmap()))
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
