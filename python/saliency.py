@@ -40,7 +40,7 @@ class Saliency(Operation):
 
     @staticmethod
     def largest_contours_rect(saliency):
-        contours, hierarchy = cv2.findContours(saliency * 1, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        image, contours, hierarchy = cv2.findContours(saliency * 1, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         contours = sorted(contours, key=cv2.contourArea)
         return cv2.boundingRect(contours[-1])
 
@@ -66,7 +66,9 @@ class Saliency(Operation):
     def execute(input_image):
         img = np.array(input_image)
         img = img[:, :, ::-1].copy()
-        img = cv2.resize(img, (640 / 2, 480 / 2))
+
+        # img = cv2.resize(img, (int(640 / 2), int(480 / 2)))
+
         mask = Saliency.backprojection_saliency(img)
         segmentation = img * mask[:, :, np.newaxis]
         return Image.fromarray(segmentation)
