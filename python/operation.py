@@ -8,8 +8,8 @@ import io
 
 class Operation(object):
     @staticmethod
-    def execute(input_pixmap):
-        return input_pixmap
+    def execute(input_image):
+        return input_image
 
 
 def qpixmap_to_pil_image(pixmap):

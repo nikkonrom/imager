@@ -11,9 +11,10 @@ from skimage.util import img_as_ubyte
 
 class SemanticSegmentation(Operation):
     @staticmethod
-    def execute(input_pixmap):
-        size = (input_pixmap.width() / 100, input_pixmap.height() / 100)
-        grayscale = qpixmap_to_pil_image(input_pixmap).convert('L')
+    def execute(input_image):
+        size = input_image.size
+        size = (int(size[0]/100), int(size[1]/100))
+        grayscale = input_image.convert('L')
         image_arr = np.array(img_as_ubyte(grayscale))
         denoised = rank.median(image_arr, disk(2))
         markers = rank.gradient(denoised, disk(5)) < 10
@@ -35,6 +36,4 @@ class SemanticSegmentation(Operation):
         buffer = io.BytesIO()
         figure.savefig(buffer,  bbox_inches=extent, pad_inches=0, format='png')
         buffer.seek(0)
-        output = Image.open(buffer)
-
-        return QPixmap.fromImage(image_to_qimage(output))
+        return Image.open(buffer)
