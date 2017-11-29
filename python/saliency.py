@@ -72,15 +72,3 @@ class Saliency(Operation):
         mask = Saliency.backprojection_saliency(img)
         segmentation = img * mask[:, :, np.newaxis]
         return Image.fromarray(segmentation)
-
-    """
-    if __name__ == "__main__":
-        name = sys.argv[1].strip(".jpg")
-
-        img = cv2.imread(sys.argv[1], 1)
-
-
-        cv2.imshow("original", img)
-        cv2.imshow("segmentation", segmentation)
-        cv2.waitKey(-1)
-    """

@@ -169,6 +169,28 @@
                  </item>
                 </layout>
                </widget>
+               <widget class="QWidget" name="page_3">
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_4">
+                   <property name="title">
+                    <string>Saliency options</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="page_4">
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_5">
+                   <property name="title">
+                    <string>Face Recognition options</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </widget>
              </item>
             </layout>
@@ -253,7 +275,7 @@
       <item>
        <widget class="QPushButton" name="pushButtonExportSettings">
         <property name="text">
-         <string>Export settings</string>
+         <string>Export options</string>
         </property>
        </widget>
       </item>
