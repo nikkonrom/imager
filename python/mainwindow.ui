@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>736</width>
-    <height>397</height>
+    <width>827</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,6 +67,20 @@
               <widget class="QPushButton" name="semanticSegmentationButton">
                <property name="text">
                 <string>Semantic Segmentation</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButtonImageSaliency">
+               <property name="text">
+                <string>Saliency</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButtonFaceRecognition">
+               <property name="text">
+                <string>Face Recognition</string>
                </property>
               </widget>
              </item>
@@ -252,7 +266,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>736</width>
+     <width>827</width>
      <height>22</height>
     </rect>
    </property>
