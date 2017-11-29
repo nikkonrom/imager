@@ -7,7 +7,7 @@ from python.semantic_segmentation import SemanticSegmentation
 from python.mainwindow import *
 from python.operation import qpixmap_to_pil_image
 from python.operation import image_to_qimage
-
+from python.saliency import Saliency
 
 class MyWin(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -19,6 +19,7 @@ class MyWin(QtWidgets.QMainWindow):
 
         self.ui.boundariesButton.clicked.connect(self.get_boundaries)
         self.ui.semanticSegmentationButton.clicked.connect(self.get_semantic_segmentation)
+        self.ui.pushButtonImageSaliency.clicked.connect(self.get_saliency)
 
         self.ui.keepAspectRatioCheckBox.stateChanged.connect(self.ui.inputLabel.setKeepAspectRatioEnabled)
         self.ui.keepAspectRatioCheckBox.stateChanged.connect(self.ui.outputLabel.setKeepAspectRatioEnabled)
@@ -42,6 +43,12 @@ class MyWin(QtWidgets.QMainWindow):
         if self.ui.inputLabel.pixmap() is not None:
             self.ui.outputLabel.loadPixmapData(QPixmap.fromImage(image_to_qimage(SemanticSegmentation.execute(
                 qpixmap_to_pil_image(self.ui.inputLabel.pixmap())))))
+
+    def get_saliency(self):
+        if self.ui.inputLabel.pixmap() is not None:
+            self.ui.outputLabel.loadPixmapData(QPixmap.fromImage(image_to_qimage(Saliency.execute(qpixmap_to_pil_image(
+                self.ui.inputLabel.pixmap())))))
+
 
 
 if __name__ == "__main__":

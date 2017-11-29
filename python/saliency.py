@@ -1,7 +1,7 @@
 import cv2, sys
 import numpy as np
 from python.operation import Operation
-
+from PIL import Image
 
 class Saliency(Operation):
     @staticmethod
@@ -64,19 +64,21 @@ class Saliency(Operation):
 
     @staticmethod
     def execute(input_image):
+        img = np.array(input_image)
+        img = img[:, :, ::-1].copy()
+        img = cv2.resize(img, (640 / 2, 480 / 2))
+        mask = Saliency.backprojection_saliency(img)
+        segmentation = img * mask[:, :, np.newaxis]
+        return Image.fromarray(segmentation)
 
-
-
-
-
+    """
     if __name__ == "__main__":
         name = sys.argv[1].strip(".jpg")
 
         img = cv2.imread(sys.argv[1], 1)
-        img = cv2.resize(img, (640 / 2, 480 / 2))
-        mask = backprojection_saliency(img)
-        segmentation = img * mask[:, :, np.newaxis]
+
 
         cv2.imshow("original", img)
         cv2.imshow("segmentation", segmentation)
         cv2.waitKey(-1)
+    """
