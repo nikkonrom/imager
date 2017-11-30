@@ -6,7 +6,9 @@ from PIL import Image
 
 class FaceRecognition(Operation):
     @staticmethod
-    def execute(input_image, colors, width):
+    def execute(input_image, settings):
+        colors = settings.face_settings[0]
+        width = settings.face_settings[1]
         img = np.array(input_image)
         # img = img[:, :, ::-1].copy()
         face_locations = face_recognition.face_locations(img)

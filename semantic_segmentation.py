@@ -11,7 +11,7 @@ from skimage.util import img_as_ubyte
 
 class SemanticSegmentation(Operation):
     @staticmethod
-    def execute(input_image):
+    def execute(input_image, settings):
         size = input_image.size
         size = (int(size[0]/100), int(size[1]/100))
         grayscale = input_image.convert('L')

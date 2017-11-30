@@ -63,7 +63,7 @@ class Saliency(Operation):
 
 
     @staticmethod
-    def execute(input_image):
+    def execute(input_image, settings):
         img = np.array(input_image)
         img = img[:, :, ::-1].copy()
 

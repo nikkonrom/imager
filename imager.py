@@ -11,6 +11,7 @@ from semantic_segmentation import SemanticSegmentation
 from saliency import Saliency
 from face_recognition_ import FaceRecognition
 import api
+import serialization
 
 class MyWin(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -30,6 +31,11 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.ignoreOverscaleCheckBox.stateChanged.connect(self.ui.inputLabel.setOverscaleEnabled)
         self.ui.ignoreOverscaleCheckBox.stateChanged.connect(self.ui.outputLabel.setOverscaleEnabled)
 
+
+    def get_filter_number(self):
+        return 1 if self.ui.radioButtonRoberts.isChecked() else 2 if \
+                self.ui.radioButtonPrewitt.isChecked() else 3 if self.ui.radioButtonSobel.isChecked() else 4
+
     def load_image(self):
         input_image_path = QFileDialog.getOpenFileName(self, 'Open image...', '/home/nikita/Изображения/')[0]
         if input_image_path:
@@ -39,29 +45,39 @@ class MyWin(QtWidgets.QMainWindow):
     def get_boundaries(self):
         self.ui.stackedWidget.setCurrentIndex(0)
         if self.ui.inputLabel.pixmap() is not None:
-            filter_number = 1 if self.ui.radioButtonRoberts.isChecked() else 2 if \
-                self.ui.radioButtonPrewitt.isChecked() else 3 if self.ui.radioButtonSobel.isChecked() else 4
+            filter_number = self.get_filter_number()
             self.ui.outputLabel.loadPixmapData(QPixmap.fromImage(image_to_qimage(BoundariesOperation.execute(
-                qpixmap_to_pil_image(self.ui.inputLabel.pixmap()), filter_number))))
+                qpixmap_to_pil_image(self.ui.inputLabel.pixmap()), self.get_settings()))))
 
     def get_semantic_segmentation(self):
         self.ui.stackedWidget.setCurrentIndex(1)
         if self.ui.inputLabel.pixmap() is not None:
             self.ui.outputLabel.loadPixmapData(QPixmap.fromImage(image_to_qimage(SemanticSegmentation.execute(
-                qpixmap_to_pil_image(self.ui.inputLabel.pixmap())))))
+                qpixmap_to_pil_image(self.ui.inputLabel.pixmap()), self.get_settings()))))
 
     def get_saliency(self):
         self.ui.stackedWidget.setCurrentIndex(2)
         if self.ui.inputLabel.pixmap() is not None:
             self.ui.outputLabel.loadPixmapData(QPixmap.fromImage(image_to_qimage(Saliency.execute(qpixmap_to_pil_image(
-                self.ui.inputLabel.pixmap())))))
+                self.ui.inputLabel.pixmap()), self.get_settings()))))
 
     def get_face_recognition(self):
         self.ui.stackedWidget.setCurrentIndex(3)
         if self.ui.inputLabel.pixmap() is not None:
             self.ui.outputLabel.loadPixmapData(QPixmap.fromImage(image_to_qimage(FaceRecognition.execute(
-                qpixmap_to_pil_image(self.ui.inputLabel.pixmap()), (self.ui.spinBoxR.value(),
-                    self.ui.spinBoxG.value(), self.ui.spinBoxB.value()), self.ui.spinBoxWidth.value()))))
+                qpixmap_to_pil_image(self.ui.inputLabel.pixmap()), self.get_settings()))))
+
+
+    def get_settings(self):
+        settings = serialization.Settings((self.get_filter_number(),), segmentation_settings=[], saliency_settings=[],
+                                          face_settngs=((self.ui.spinBoxR.value(),
+                    self.ui.spinBoxG.value(), self.ui.spinBoxB.value()), self.ui.spinBoxWidth.value()))
+        return settings
+
+    def export_settings(self):
+
+
+
 
 
 if __name__ == "__main__":
