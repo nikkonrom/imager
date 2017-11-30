@@ -9,7 +9,8 @@ from skimage.filters import roberts, sobel, scharr, prewitt
 
 class BoundariesOperation(Operation):
     @staticmethod
-    def execute(input_image, filter_number):
+    def execute(input_image, settings):
+        filter_number = settings[0]
         grayscale = input_image.convert('L')
         if filter_number == 1:
             edges = roberts(grayscale)

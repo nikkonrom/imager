@@ -17,6 +17,9 @@
    <iconset>
     <normaloff>python/C:/Users/jeavr/Desktop/unnamed.png</normaloff>python/C:/Users/jeavr/Desktop/unnamed.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
