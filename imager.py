@@ -3,11 +3,11 @@ from api import createParser
 from PyQt5 import Qt, QtWidgets
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QFileDialog
-from boundaries import BoundariesOperation
-from semantic_segmentation import SemanticSegmentation
 from mainwindow import *
 from operation import qpixmap_to_pil_image
 from operation import image_to_qimage
+from boundaries import BoundariesOperation
+from semantic_segmentation import SemanticSegmentation
 from saliency import Saliency
 from face_recognition_ import FaceRecognition
 
