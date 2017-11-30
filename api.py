@@ -1,4 +1,10 @@
 import argparse
+import os
+import multithreading
+from boundaries import BoundariesOperation
+from semantic_segmentation import SemanticSegmentation
+from saliency import Saliency
+from face_recognition_ import FaceRecognition
 
 def createParser():
     parser = argparse.ArgumentParser()
@@ -10,3 +16,27 @@ def createParser():
 
 
 
+def begin_invoke(namespase):
+    if namespase.infld and namespase.exec:
+        tree = []
+        for d, dirs, files in os.walk(namespase.infld):
+            for f in files:
+                path = os.path.join(d,f)
+                tree.append(path)
+        func = None
+        output_folder = ''
+
+        if namespase.exec == 'boundaries':
+            func = BoundariesOperation.execute
+        elif namespase.exec == 'semantic_segmentation':
+            func = SemanticSegmentation.execute
+        elif namespase.exec == 'saliency':
+            func = Saliency.execute
+        elif namespase.exec == 'face_recognition':
+            func = FaceRecognition.execute
+
+        if namespase.outfld:
+            output_folder = namespase.outfld
+
+        multithreading.execute_processing(tree, files, func, output_folder)
+        return True

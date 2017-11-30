@@ -8,7 +8,7 @@ class FaceRecognition(Operation):
     @staticmethod
     def execute(input_image, colors, width):
         img = np.array(input_image)
-        img = img[:, :, ::-1].copy()
+        # img = img[:, :, ::-1].copy()
         face_locations = face_recognition.face_locations(img)
         for (top, right, bottom, left) in face_locations:
             cv2.rectangle(img, (left, top), (right, bottom), (colors[0], colors[1], colors[2]), width)

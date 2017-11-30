@@ -10,7 +10,7 @@ from boundaries import BoundariesOperation
 from semantic_segmentation import SemanticSegmentation
 from saliency import Saliency
 from face_recognition_ import FaceRecognition
-
+import api
 
 class MyWin(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -60,14 +60,17 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(3)
         if self.ui.inputLabel.pixmap() is not None:
             self.ui.outputLabel.loadPixmapData(QPixmap.fromImage(image_to_qimage(FaceRecognition.execute(
-                qpixmap_to_pil_image(self.ui.inputLabel.pixmap())))))
+                qpixmap_to_pil_image(self.ui.inputLabel.pixmap()), (self.ui.spinBoxR.value(),
+                    self.ui.spinBoxG.value(), self.ui.spinBoxB.value()), self.ui.spinBoxWidth.value()))))
 
 
 if __name__ == "__main__":
     parser = createParser()
     namespace = parser.parse_args()
     print(namespace)
-    #app = QtWidgets.QApplication(sys.argv)
-    #myapp = MyWin()
-    #myapp.show()
-    #sys.exit(app.exec_())
+    parser = api.createParser()
+    if not api.begin_invoke(parser.parse_args()):
+        app = QtWidgets.QApplication(sys.argv)
+        myapp = MyWin()
+        myapp.show()
+        sys.exit(app.exec_())

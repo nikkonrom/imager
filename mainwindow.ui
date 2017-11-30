@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>C:/Users/jeavr/Desktop/unnamed.png</normaloff>C:/Users/jeavr/Desktop/unnamed.png</iconset>
+    <normaloff>python/C:/Users/jeavr/Desktop/unnamed.png</normaloff>python/C:/Users/jeavr/Desktop/unnamed.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -81,7 +81,7 @@
                 </sizepolicy>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>3</number>
                </property>
                <widget class="QWidget" name="page">
                 <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -162,6 +162,89 @@
                    <property name="title">
                     <string>Face Recognition options</string>
                    </property>
+                   <layout class="QGridLayout" name="gridLayout_2">
+                    <item row="0" column="0">
+                     <layout class="QVBoxLayout" name="verticalLayout_5">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_7">
+                        <item>
+                         <widget class="QLabel" name="label">
+                          <property name="text">
+                           <string>R</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QSpinBox" name="spinBoxR">
+                          <property name="maximum">
+                           <number>255</number>
+                          </property>
+                          <property name="value">
+                           <number>255</number>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_2">
+                          <property name="text">
+                           <string>G</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QSpinBox" name="spinBoxG">
+                          <property name="maximum">
+                           <number>255</number>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_3">
+                          <property name="text">
+                           <string>B</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QSpinBox" name="spinBoxB">
+                          <property name="maximum">
+                           <number>255</number>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_8">
+                        <item>
+                         <widget class="QLabel" name="label_4">
+                          <property name="text">
+                           <string>Rectangle width</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QSpinBox" name="spinBoxWidth">
+                          <property name="maximum">
+                           <number>10</number>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                   <zorder>spinBoxG</zorder>
+                   <zorder>spinBoxR</zorder>
+                   <zorder>spinBoxB</zorder>
+                   <zorder>outputLabel</zorder>
+                   <zorder>spinBoxR</zorder>
+                   <zorder>label</zorder>
+                   <zorder>label_2</zorder>
+                   <zorder>label_3</zorder>
+                   <zorder>label_4</zorder>
+                   <zorder>spinBoxWidth</zorder>
                   </widget>
                  </item>
                 </layout>
@@ -171,6 +254,13 @@
             </layout>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
@@ -220,13 +310,6 @@
           </property>
           <property name="scaledContents">
            <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="Line" name="line_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
           </property>
          </widget>
         </item>
