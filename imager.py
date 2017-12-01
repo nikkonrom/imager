@@ -2,7 +2,7 @@ import sys
 from api import createParser
 from PyQt5 import Qt, QtWidgets
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from mainwindow import *
 from operation import qpixmap_to_pil_image
 from operation import image_to_qimage
@@ -20,6 +20,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         self.ui.loadButton.clicked.connect(self.load_image)
+        self.ui.pushButtonExportSettings.clicked.connect(self.export_settings)
 
         self.ui.boundariesButton.clicked.connect(self.get_boundaries)
         self.ui.semanticSegmentationButton.clicked.connect(self.get_semantic_segmentation)
@@ -75,6 +76,12 @@ class MyWin(QtWidgets.QMainWindow):
         return settings
 
     def export_settings(self):
+        serialization.serialize(self.get_settings())
+        messagebox = QMessageBox()
+        messagebox.setIcon(QMessageBox.Information)
+        messagebox.setText("Settings saved in 'settings.json'")
+        messagebox.setWindowTitle("Export settings...")
+        messagebox.exec_()
 
 
 
