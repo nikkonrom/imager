@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 import cv2
 import face_recognition
 from operation import Operation
@@ -7,6 +9,7 @@ from PIL import Image
 class FaceRecognition(Operation):
     @staticmethod
     def execute(input_image, settings):
+        settings = namedtuple("settings", settings.keys())(*settings.values())
         colors = settings.face_settings[0]
         width = settings.face_settings[1]
         img = np.array(input_image)

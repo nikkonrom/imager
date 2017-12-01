@@ -1,14 +1,12 @@
 import json
 from json import JSONEncoder
+
+
 class JSON(JSONEncoder):
         def default(self, o):
             return o.__dict__
 
 class Settings(object):
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
-
     def __init__(self, boundaries_settings, segmentation_settings, saliency_settings, face_settngs):
         self.boundaries_settings = boundaries_settings
         self.segmentation_settings = segmentation_settings
@@ -23,5 +21,5 @@ def serialize(settings):
 
 def deserialize():
     filename = 'settings.json'
-    return json.load(filename)
+    return json.load(fp=open(filename, mode='r'))
 
