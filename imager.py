@@ -84,9 +84,6 @@ class MyWin(QtWidgets.QMainWindow):
         messagebox.exec_()
 
 
-
-
-
 if __name__ == "__main__":
     parser = createParser()
     namespace = parser.parse_args()
